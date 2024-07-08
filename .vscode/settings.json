@@ -1,0 +1,4 @@
+{ 
+    // Removes Javascript validation in HTML files
+    "html.validate.scripts": false,
+}

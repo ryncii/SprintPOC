@@ -27,17 +27,17 @@ def success():
     #return render_template('success.html', INPUT = request.form['input'], SQSQ = squeeze)
 
 
-@app.route('/login', methods=['POST'])
-def login():
-    if request.method == 'POST':
-        user = request.form['input']
-        return redirect(url_for('success'))
-    else:
-        return render_template('login.html')
-
 @app.route('/braindead')
 def hello():
     return 'Well'
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+'''
+if request.method == 'POST':
+        user = request.form['username']
+        return redirect(url_for('success2'))
+    else:
+'''

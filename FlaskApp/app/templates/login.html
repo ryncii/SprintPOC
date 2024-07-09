@@ -3,7 +3,7 @@
 {% block content %}
     <div class="center">
         <h3>Login</h3>
-        <form action = "http://127.0.0.1:5000/success" method = "post">
+        <form action = "{{ url_for('home.load') }}" method = "post">
             <table>
                 <tr>
                     <td>Username: </td>
@@ -18,5 +18,4 @@
         </form>
         <a href="">Create a new Account</a>
     </div>
-
 {% endblock %}

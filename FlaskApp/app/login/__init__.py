@@ -8,7 +8,6 @@ def load():
 
 @bp.route('/authenticate', methods=['POST'])
 def authenticate():
-    print('inhere')
     if flaskReq.form['username'] == 'Hello':
         return redirect(url_for('home.load'), code=307)
     else:

@@ -1,5 +1,6 @@
-<html>
-    <body>
+{% extends 'base.html' %}
+
+{% block content %}
         <h1>This is to test the success of reading post</h1>
         <p>{{INPUT}}</p>
         <p>{{SQSQ}}</p>
@@ -12,4 +13,4 @@
         var graphs = {{ FIG1 | safe }};
         Plotly.plot('chart',graphs,{});
     </script>
-</html>
+{% endblock %}

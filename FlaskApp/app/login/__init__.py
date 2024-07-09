@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request as flaskReq
+from flask import Blueprint, render_template, request as flaskReq, redirect, url_for
 
 bp = Blueprint('login', __name__)
 
@@ -8,5 +8,8 @@ def load():
 
 @bp.route('/authenticate', methods=['POST'])
 def authenticate():
-    print(flaskReq.form['username'])
-    return render_template('login.html')
+    print('inhere')
+    if flaskReq.form['username'] == 'Hello':
+        return redirect(url_for('home.load'), code=307)
+    else:
+        return redirect(url_for('login.load'))

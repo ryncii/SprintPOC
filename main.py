@@ -30,8 +30,10 @@ def success():
 @app.route('/login', methods=['POST'])
 def login():
     if request.method == 'POST':
-        user = request.form['input']
-        return redirect(url_for('success'))
+        if request.form['input'] == 'hello':
+            return render_template('login.html')
+        else:
+            return redirect(url_for('success'), code=307)
     else:
         return render_template('login.html')
 

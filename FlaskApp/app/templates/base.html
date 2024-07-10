@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>[Platform Name] by [Company Name]</title>
+    <style type="text/css">
+        .main {
+            background-color:#e8e3c9;
+        }
+
+        .headerStyle {
+            font-family: sans-serif;
+            color: #1d4625;
+            text-decoration: underline;
+            padding: 1px;
+
+        }
+
+        
+        .center {
+            border: 2px solid;
+            margin: auto;
+            width: 50%;
+            padding: 10px;
+        }
+        .navBar {
+            background: #8a9a5b;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body class="main">
+    <div class="headerStyle">
+        <h1>Somefancyappname</h1>
+    </div>
+    <div class="content">
+        {% block content %} {% endblock content %}
+    </div>
+    <p align="Right""><i>powered by [Company Name]</i></p>
+</body>
+</html>

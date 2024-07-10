@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="center">
+        <h3>Login</h3>
+        <form action = "{{ url_for('login.authenticate') }}" method = "post">
+            <table>
+                <tr>
+                    <td>Username: </td>
+                    <td><input type="text" name="username" /></td>
+                </tr>
+                <tr>
+                    <td>Password: </td>
+                    <td><input type="password" name="password" /></td>
+                </tr>
+            </table>
+            <p><input type = "submit" value = "Submit" /></p>
+        </form>
+        <a href="">Create a new Account</a>
+    </div>
+{% endblock %}

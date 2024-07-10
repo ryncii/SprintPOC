@@ -17,4 +17,4 @@ def load():
     squeeze = squeezeThisTextIn()
     fig = buildSampleGraphImage()
     graphJSON = json.dumps(fig, cls=pUtils.PlotlyJSONEncoder)
-    return render_template('home.html', INPUT = flaskReq.form['username'], SQSQ = squeeze, FIG1 = graphJSON)
+    return render_template('home.html', username = flaskReq.form['username'], SQSQ = squeeze, FIG1 = graphJSON)

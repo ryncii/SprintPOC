@@ -1,16 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
-        <h1>This is to test the success of reading post</h1>
-        <p>{{INPUT}}</p>
-        <p>{{SQSQ}}</p>
-        <h3>Now is the final prove of concept</h3>
-        <div id="chart" class="chart"></div>
-    </body>
+    {% include 'navigation.html' %}
+    <h1>This is to test the success of reading post</h1>
+    <p>{{SQSQ}}</p>
+    <h3>Now is the final prove of concept</h3>
+    <div id="chart" class="chart"></div>
 
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script type="text/javascript">
         var graphs = {{ FIG1 | safe }};
         Plotly.plot('chart',graphs,{});
     </script>
-{% endblock %}
+{% endblock content %}

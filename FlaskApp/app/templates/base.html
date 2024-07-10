@@ -4,39 +4,68 @@
     <meta charset="UTF-8">
     <title>[Platform Name] by [Company Name]</title>
     <style type="text/css">
+
         .main {
-            background-color:#e8e3c9;
+            background-color:#154360;
         }
 
-        .headerStyle {
-            font-family: sans-serif;
-            color: #1d4625;
-            text-decoration: underline;
-            padding: 1px;
-
-        }
-
-        
-        .center {
-            border: 2px solid;
+        .divBoxLogin{
+            border-radius: 15px;
+            background-color:#EAF2F8;
+            border: 3px solid;
             margin: auto;
-            width: 50%;
+            width: 30%;
             padding: 10px;
         }
-        .navBar {
-            background: #8a9a5b;
-            text-align: center;
+
+        .divBoxHome{
+            border-radius: 15px;
+            background-color:#EAF2F8;
+            margin: 20px;
+            border: 3px solid;
+            vertical-align: top;
+            border: 1px solid;
+        }
+
+        .divBoxContent{
+            border-radius: 15px;
+            background-color:#FFFFFF;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            padding: 10px;
+            vertical-align: top;
+            display: inline-block;
+        }
+ 
+        .divBoxNav{
+            border-radius: 15px;
+            background-color:#EAF2F8;
+            padding: 10px;
+            display: inline-block;
+        }
+    
+        .navPaneTop{
+            padding: 10px;
+            text-align: left;
+            vertical-align: top;
+        }
+        
+        .navPaneBot{
+            padding: 10px;
+            text-align: left;
+            vertical-align: bottom;
+        }
+
+        .navPaneSplit{
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border-top: 1px solid black;
         }
 
     </style>
 </head>
 <body class="main">
-    <div class="headerStyle">
-        <h1>Somefancyappname</h1>
-    </div>
-    <div class="content">
-        {% block content %} {% endblock content %}
-    </div>
-    <p align="Right""><i>powered by [Company Name]</i></p>
+    {% block content %} {% endblock content %}
+
 </body>
 </html>

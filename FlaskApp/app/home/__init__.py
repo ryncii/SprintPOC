@@ -1,10 +1,12 @@
 from flask import Blueprint, render_template, request as flaskReq
+from config import Config
 import plotly.express as px, plotly.utils as pUtils, json
 
 bp = Blueprint('home', __name__)
 
 # Generic Functions
 def squeezeThisTextIn():
+    print(Config.SECRET_KEY)
     return 'Hello Everybody'
 
 def buildSampleGraphImage():

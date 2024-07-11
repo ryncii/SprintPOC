@@ -1,0 +1,3 @@
+﻿AccountID,Type,Balance,Currency,SecretKey
+SimAccount01,Current,109293.28,SGD,ACCOUNTSECRETKEY01
+SimAccount02,Current,92743.10,SGD,ACCOUNTSECRETKEY02

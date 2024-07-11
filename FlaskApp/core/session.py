@@ -13,7 +13,7 @@ class Session:
         self.db['RyanC']['SecretKey'] = 'ACCOUNTSECRETKEY01'
         self.db['Account1'] = {}
         self.db['Account1']['Password'] = 'Enter123'
-        self.db['Account1']['SecretKey'] = 'ACCOUNTSECRETKEY01'
+        self.db['Account1']['SecretKey'] = 'ACCOUNTSECRETKEY02'
 
     def authenticate(self, username:str, password:str):
         print('Attempting Authentication: '+ username + ', ' + password)

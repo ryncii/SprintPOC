@@ -8,9 +8,12 @@ class Session:
 
         # Temporary - POC does not require DB
         self.db = {}
-        self.db['Ryan'] = {}
-        self.db['Ryan']['Password'] = 'Enter123'
-        self.db['Ryan']['SecretKey'] = 'ACCOUNTSECRETKEY01'
+        self.db['RyanC'] = {}
+        self.db['RyanC']['Password'] = 'Enter123'
+        self.db['RyanC']['SecretKey'] = 'ACCOUNTSECRETKEY01'
+        self.db['Account1'] = {}
+        self.db['Account1']['Password'] = 'Enter123'
+        self.db['Account1']['SecretKey'] = 'ACCOUNTSECRETKEY01'
 
     def authenticate(self, username:str, password:str):
         print('Attempting Authentication: '+ username + ', ' + password)

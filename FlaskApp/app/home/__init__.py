@@ -18,9 +18,9 @@ def buildSampleGraphImage():
 
 @bp.route('/')
 def load():
-    #interface = InterfaceAPI()
-    #interface.interfaceDataset()
-    #interface.view()
+    interface = InterfaceAPI()
+    interface.interfaceDataset()
+    interface.view()
     
     squeeze = squeezeThisTextIn()
     fig = buildSampleGraphImage()

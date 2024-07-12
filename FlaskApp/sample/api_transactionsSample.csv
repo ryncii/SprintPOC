@@ -1,4 +1,4 @@
-﻿Timestamp,TransactionID,Currency,Amount,Method,Reference,AccountID,Type,CounterpartyID,SecretKey
+﻿Timestamp,TransactionID,Currency,Amount,Method,Reference,AccountID,Type,CounterpartyID,LocalID
 17/1/24 15:22,T1001,SGD,60.22,CreditCard,NewSub,SimAccount01,Sales,CPT01,ACCOUNTSECRETKEY01
 27/1/24 15:22,T1002,SGD,60.22,CreditCard,NewSub,SimAccount01,Sales,CPT02,ACCOUNTSECRETKEY01
 4/2/24 15:22,T1003,SGD,31.7,CreditCard,SubRenewal,SimAccount01,Sales,CPT01,ACCOUNTSECRETKEY01

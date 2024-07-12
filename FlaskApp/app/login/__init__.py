@@ -1,8 +1,7 @@
-from flask import Blueprint, render_template, request as flaskReq, redirect, url_for
-from core.session import Session
+from flask import Blueprint, render_template, request as flaskReq, redirect, url_for, current_app
+import core.profile as profile
 
 bp = Blueprint('login', __name__)
-userSession = Session()
 
 @bp.route('/')
 def load():
@@ -10,7 +9,7 @@ def load():
 
 @bp.route('/authenticate', methods=['POST'])
 def authenticate():
-    if userSession.authenticate(flaskReq.form['username'], flaskReq.form['password']):
-        return redirect(url_for('home.load'), code=307)
+    if profile.authenticate(current_app, flaskReq.form['username'], flaskReq.form['password']):
+        return redirect(url_for('home.load'))
     else:
         return redirect(url_for('login.load'))

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request as flaskReq
+from flask import Blueprint, render_template, request as flaskReq, current_app, session
 from config import Config
 import plotly.express as px, plotly.utils as pUtils, json
 
@@ -25,4 +25,4 @@ def load():
     squeeze = squeezeThisTextIn()
     fig = buildSampleGraphImage()
     graphJSON = json.dumps(fig, cls=pUtils.PlotlyJSONEncoder)
-    return render_template('home.html', username = flaskReq.form['username'], SQSQ = squeeze, FIG1 = graphJSON)
+    return render_template('home.html', username = session['Username'], SQSQ = squeeze, FIG1 = graphJSON)

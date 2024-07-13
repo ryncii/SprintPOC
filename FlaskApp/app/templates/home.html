@@ -4,7 +4,22 @@
     <div class="divBoxHome">
         <div class="divBoxNav"> {% include 'navigation.html' %} </div>
         <div class="divBoxContent">
-            <h1>This is to test the success of reading post</h1>
+            <h1>At a Glance</h1>
+            <div class="divContentAccount">
+                <h2>Total Funds:</h2><h3>{{ TOTALACCOUNT_VALUE }}</h3> <h4>{{ TOTALACCOUNT_UNIT }}</h4><br/>
+                {% if ACCOUNT_LS|length == 1 %}
+                    {% set BankDict = (ACCOUNT_LS|first) %}
+                    <h5>Account: {{ BankDict['BankAccountID'] }}</h5>
+                {% else %}
+                    {% for BankA in ACCOUNT_LS %}
+                        {% set BankDict = (BankA) %}
+                        <div class="divCardAccount">
+                            <h2>Account: {{ BankDict['BankAccountID'] }}</h2><br/>
+                            <h3>{{ BankDict['Balance'] }}</h3> <h4>{{ BankDict['Currency'] }}</h4>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
             <p>{{SQSQ}}</p>
             <h3>Now is the final prove of concept</h3>
             <div id="chart" class="chart"></div>

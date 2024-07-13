@@ -11,6 +11,7 @@
                     {% set BankDict = (ACCOUNT_LS|first) %}
                     <h5>Account: {{ BankDict['BankAccountID'] }}</h5>
                 {% else %}
+                    <div class="divCardPanel">
                     {% for BankA in ACCOUNT_LS %}
                         {% set BankDict = (BankA) %}
                         <div class="divCardAccount">
@@ -18,6 +19,7 @@
                             <h3>{{ BankDict['Balance'] }}</h3> <h4>{{ BankDict['Currency'] }}</h4>
                         </div>
                     {% endfor %}
+                    </div>
                 {% endif %}
             </div>
             <p>{{SQSQ}}</p>

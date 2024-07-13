@@ -1,5 +1,4 @@
-from flask import Flask, session as flaskSession
-import random
+from flask import session as flaskSession
 import pandas as pd
 
 def authenticate(username:str, password:str):

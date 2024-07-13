@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request as flaskReq, redirect, url_for, current_app
-import core.profile as profile
+import core.authentication as authentication
 
 bp = Blueprint('login', __name__)
 
@@ -9,7 +9,7 @@ def load():
 
 @bp.route('/authenticate', methods=['POST'])
 def authenticate():
-    if profile.authenticate(current_app, flaskReq.form['username'], flaskReq.form['password']):
+    if authentication.authenticate(current_app, flaskReq.form['username'], flaskReq.form['password']):
         return redirect(url_for('home.load'))
     else:
         return redirect(url_for('login.load'))

@@ -20,9 +20,11 @@ def buildSampleGraphImage():
 def load():
     interface = InterfaceAPI()
     interface.interfaceDataset()
+    interface.calculateAccountFunds()
+    interface.calculateBusinessState()
     # interface.view()
     
     squeeze = squeezeThisTextIn()
     fig = buildSampleGraphImage()
     graphJSON = json.dumps(fig, cls=pUtils.PlotlyJSONEncoder)
-    return render_template('home.html', username = session['Username'], TOTALACCOUNT_VALUE = interface.accountFunds, TOTALACCOUNT_UNIT = interface.defaultCurrency, ACCOUNT_LS=interface.bankAccount_ls, FIG1 = graphJSON)
+    return render_template('home.html', username = session['Username'], TOTALACCOUNT_VALUE = interface.accountFunds, TOTALACCOUNT_UNIT = interface.defaultCurrency, ACCOUNT_LS=interface.bankAccount_ls, FIG1 = interface.overallHealthGraph)

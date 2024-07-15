@@ -5,16 +5,16 @@
         <div class="divBoxNav"> {% include 'navigation.html' %} </div>
         <div class="divBoxContent">
             <h1>At a Glance</h1>
-            <div class="divContentAccount">
-                <h2>Total Funds:</h2><h3>{{ TOTALACCOUNT_VALUE }}</h3> <h4>{{ TOTALACCOUNT_UNIT }}</h4><br/>
+            <div class="divCardContent">
+                <h1>Total Funds:</h1><h2>{{ TOTALACCOUNT_VALUE }}</h2> <h3>{{ TOTALACCOUNT_UNIT }}</h3><br/>
                 {% if ACCOUNT_LS|length == 1 %}
                     {% set BankDict = (ACCOUNT_LS|first) %}
-                    <h5>Account: {{ BankDict['BankAccountID'] }}</h5>
+                    <h4>Account: {{ BankDict['BankAccountID'] }}</h4>
                 {% else %}
                     <div class="divCardPanel">
                     {% for BankA in ACCOUNT_LS %}
                         {% set BankDict = (BankA) %}
-                        <div class="divCardAccount">
+                        <div class="divSubCardContent">
                             <h2>Account: {{ BankDict['BankAccountID'] }}</h2><br/>
                             <h3>{{ BankDict['Balance'] }}</h3> <h4>{{ BankDict['Currency'] }}</h4>
                         </div>

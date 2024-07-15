@@ -9,7 +9,7 @@ def load():
 
 @bp.route('/authenticate', methods=['POST'])
 def authenticate():
-    if authentication.authenticate(current_app, flaskReq.form['username'], flaskReq.form['password']):
+    if authentication.authenticate(flaskReq.form['username'], flaskReq.form['password']):
         return redirect(url_for('home.load'))
     else:
         return redirect(url_for('login.load'))

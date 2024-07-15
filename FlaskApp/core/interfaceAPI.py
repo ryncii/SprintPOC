@@ -52,7 +52,7 @@ class InterfaceAPI:
                 self.overallHealth = 'Stable'
 
             print(self.overallHealth)
-            self.overallHealthGraph = customDraw.plotOverallHealth(mvAvg_3month.loc[:, 'Amount'], mvAvg_3month.index)
+            self.overallHealthGraph = customDraw.plotOverallHealth(mvAvg_3month.loc[:, 'Amount'], mvAvg_3month.loc[dt.date(dt.datetime.today().year, dt.datetime.today().month, 1), 'Amount'])
 
     def view(self):
         for key in self.datasetAPI.keys():

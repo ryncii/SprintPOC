@@ -5,6 +5,7 @@ import core.charts as customDraw
 
 # Notes
 # No currency conversion
+# Need to handle empty dataframes or dataframes with size 1
 
 class InterfaceAPI:
 

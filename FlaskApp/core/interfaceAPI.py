@@ -39,6 +39,7 @@ class InterfaceAPI:
         if isinstance(self.datasetAPI['BankInformation'], pd.Series):
             # Return Insufficient Data
             self.overallHealth = 'Unknown'
+            self.overallHealthGraph = None
         else:
             self.datasetAPI['Transaction']['Month'] = [dt.date(timestamp.year, timestamp.month, 1) for timestamp in self.datasetAPI['Transaction'].loc[:,'Timestamp']]
             mvAvg_3month = self.datasetAPI['Transaction'].groupby(['Month']).sum().rolling(window=3).mean()

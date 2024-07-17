@@ -27,4 +27,4 @@ def load():
     squeeze = squeezeThisTextIn()
     fig = buildSampleGraphImage()
     graphJSON = json.dumps(fig, cls=pUtils.PlotlyJSONEncoder)
-    return render_template('home.html', username = session['Username'], TOTALACCOUNT_VALUE = interface.accountFunds, TOTALACCOUNT_UNIT = interface.defaultCurrency, ACCOUNT_LS=interface.bankAccount_ls, FIG1 = interface.overallHealthGraph)
+    return render_template('home.html', username = session['Username'], TOTALACCOUNT_VALUE = interface.accountFunds, TOTALACCOUNT_UNIT = interface.defaultCurrency, ACCOUNT_LS=interface.bankAccount_ls, FIG1 = interface.overallHealthGraph, FIG2 = interface.paceGraph)

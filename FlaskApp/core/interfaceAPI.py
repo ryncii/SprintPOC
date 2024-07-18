@@ -1,6 +1,6 @@
 from flask import session as flaskSession
 from calendar import monthrange
-import pandas as pd, numpy as np, datetime as dt, statistics as stats, math
+import pandas as pd, numpy as np, datetime as dt, statistics as stats, math, copy
 
 # Custom Calls
 import core.charts as customDraw
@@ -8,6 +8,7 @@ import core.charts as customDraw
 # Notes
 # No currency conversion
 # Need to handle empty dataframes or dataframes with size 1
+# Under Overall health - need to fix historicalMonth in event of no data
 
 class InterfaceAPI:
 
@@ -29,7 +30,7 @@ class InterfaceAPI:
         else:
             # Sample data for POC
             transaction = pd.read_csv('sample/api_transactionsSample.csv', index_col='LocalID')
-            self.datasetAPI['Transaction'] = transaction.loc[flaskSession['LocalID']]
+            self.datasetAPI['Transaction'] = copy.copy(transaction.loc[flaskSession['LocalID']])
             self.datasetAPI['Transaction']['Timestamp'] = [dt.datetime.strptime(ts, '%d/%m/%y %H:%M') for ts in self.datasetAPI['Transaction'].loc[:,'Timestamp']]
             bankInfo = pd.read_csv('sample/api_bankInformationSample.csv', index_col='LocalID')
             self.datasetAPI['BankInformation'] = bankInfo.loc[flaskSession['LocalID']]
@@ -53,27 +54,34 @@ class InterfaceAPI:
 
             # Health
             self.datasetAPI['Transaction']['Month'] = [dt.date(timestamp.year, timestamp.month, 1) for timestamp in self.datasetAPI['Transaction'].loc[:,'Timestamp']]
-            mvAvg_3month = self.datasetAPI['Transaction'].groupby(['Month']).sum().rolling(window=3).mean()
-            sDev = stats.stdev([income for income in mvAvg_3month.loc[:,'Amount'] if income >= 0])
-            meanAmt = stats.mean([income for income in mvAvg_3month.loc[:,'Amount'] if income >= 0])
-            if mvAvg_3month.loc[dt.date(dt.datetime.today().year, dt.datetime.today().month, 1), 'Amount'] > meanAmt + sDev:
+            monthlySales = self.datasetAPI['Transaction'].groupby(['Month']).sum()
+            referenceMonth = monthlySales[monthlySales.index == (dt.date.today().replace(day=1) - dt.timedelta(days=1)).replace(day=1)] # last Month
+            historicalMonths = monthlySales[monthlySales.index < referenceMonth.index[0]]
+            sDev = stats.stdev(list(historicalMonths.loc[:,'Amount']))
+            meanAmt = stats.mean(list(historicalMonths.loc[:,'Amount']))
+            print(str(sDev) + ' ' + str(meanAmt))
+            if monthlySales.loc[dt.date.today().replace(day=1), 'Amount'] > meanAmt + sDev:
                 self.overallHealth = 'Excellent'
-            elif mvAvg_3month.loc[dt.date(dt.datetime.today().year, dt.datetime.today().month, 1), 'Amount'] < meanAmt - sDev:
-                self.overallHealth = 'Danger'
+            elif monthlySales.loc[dt.date.today().replace(day=1), 'Amount'] < meanAmt - sDev:
+                self.overallHealth = 'Warning'
             else:
                 self.overallHealth = 'Stable'
 
-            self.overallHealthGraph = customDraw.plotOverallHealth(mvAvg_3month.loc[:, 'Amount'], mvAvg_3month.loc[dt.date(dt.datetime.today().year, dt.datetime.today().month, 1), 'Amount'])
+            self.overallHealthGraph = customDraw.plotOverallHealth(list(historicalMonths.loc[:, 'Amount']), referenceMonth['Amount'][0])
 
             # Pacing
             monthDays = monthrange(dt.date.today().year, dt.date.today().month)[1]
             bins = 10 # a month will have its data devided into 10 bins (static)
             daysPerbins = monthDays / bins
+            paceIndex = math.floor(dt.date.today().day / daysPerbins)
 
-            self.datasetAPI['Transaction']['Bin'] = [math.floor(timestamp.day/daysPerbins) for timestamp in self.datasetAPI['Transaction'].loc[:,'Timestamp']]
-            self.datasetAPI['Transaction']['BinPos'] = [timestamp.day%daysPerbins for timestamp in self.datasetAPI['Transaction'].loc[:,'Timestamp']]
-            multiIndex = pd.MultiIndex.from_product([list({x for x in self.datasetAPI['Transaction']['Month']}),list({x for x in self.datasetAPI['Transaction']['Bin']})], names=['Month', 'Bin'])
-            avg_Bin = self.datasetAPI['Transaction'].groupby(['Month', 'Bin']).sum().reindex(multiIndex, fill_value=0).groupby(['Bin']).mean().loc[:, ['Amount']]
+            referenceMonth = monthlySales[monthlySales.index == dt.date.today().replace(day=1)]
+            historicalMonths = copy.copy(self.datasetAPI['Transaction'][self.datasetAPI['Transaction']['Month'] < dt.date.today().replace(day=1)])
+            historicalMonths['Bin'] = [math.floor(ts.day/daysPerbins) for ts in historicalMonths.loc[:,'Timestamp']]
+            
+
+            multiIndex = pd.MultiIndex.from_product([list({x for x in historicalMonths['Month']}),list({x for x in historicalMonths['Bin']})], names=['Month', 'Bin'])
+            avg_Bin = historicalMonths.groupby(['Month', 'Bin']).sum().reindex(multiIndex, fill_value=0).groupby(['Bin']).mean().loc[:, ['Amount']]
         
             progressBar = []
             for amt in list(avg_Bin['Amount']):
@@ -84,11 +92,8 @@ class InterfaceAPI:
             
             print(progressBar)
             avg_Bin['AvgProgress'] = progressBar
-
-            #print(self.datasetAPI['Transaction'].groupby(['Month']).sum().iloc[-1:, 'Amount'])
-            self.paceGraph = customDraw.plotPacingBar(list(avg_Bin['AvgProgress'])[-1], 200,0)
-            print(avg_Bin)
-            print(bins)
+            self.paceGraph = customDraw.plotPacingBar(list(avg_Bin['AvgProgress'])[-1], referenceMonth['Amount'][0],avg_Bin.loc[paceIndex, 'AvgProgress'])
+            print(avg_Bin.loc[paceIndex, 'AvgProgress'])
             #self.self.datasetAPI['Transaction']['MonthBin'] = [self._returnDateBin(ts) for ts in self.datasetAPI['Transaction']['Timestamp']]
 
     def view(self):

@@ -14,4 +14,4 @@ def load():
     interface.calculateBusinessState()
     # interface.view()
     
-    return render_template('home.html', username = session['Username'], TOTALACCOUNT_VALUE = interface.accountFunds, TOTALACCOUNT_UNIT = interface.defaultCurrency, ACCOUNT_LS=interface.bankAccount_ls, BIZHEALTH = interface.overallHealth, BIZREFERENCEMONTH = interface.overallHealthRefMonth, FIG1 = interface.overallHealthGraph, FIG2 = interface.paceGraph)
+    return render_template('home.html', username = session['Username'], TOTALACCOUNT_VALUE = interface.accountFunds, TOTALACCOUNT_UNIT = interface.defaultCurrency, ACCOUNT_LS=interface.bankAccount_ls, BIZHEALTH = interface.overallHealth, BIZREFERENCEMONTH = interface.overallHealthRefMonth, FIG1 = interface.overallHealthGraph, CURRENTMONTHPACE= interface.currentMonthPace, FIG2 = interface.paceGraph)

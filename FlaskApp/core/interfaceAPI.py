@@ -76,11 +76,11 @@ class InterfaceAPI:
             bins = 10 # a month will have its data devided into 10 bins (static)
             daysPerbins = monthDays / bins
             paceIndex = math.floor(dt.date.today().day / daysPerbins)
+            self.currentMonthPace = dt.date.strftime(dt.date.today(), '%b %Y')
 
             referenceMonth = monthlySales[monthlySales.index == dt.date.today().replace(day=1)]
             historicalMonths = copy.copy(self.datasetAPI['Transaction'][self.datasetAPI['Transaction']['Month'] < dt.date.today().replace(day=1)])
             historicalMonths['Bin'] = [math.floor(ts.day/daysPerbins) for ts in historicalMonths.loc[:,'Timestamp']]
-            
 
             multiIndex = pd.MultiIndex.from_product([list({x for x in historicalMonths['Month']}),list({x for x in historicalMonths['Bin']})], names=['Month', 'Bin'])
             avg_Bin = historicalMonths.groupby(['Month', 'Bin']).sum().reindex(multiIndex, fill_value=0).groupby(['Bin']).mean().loc[:, ['Amount']]
@@ -94,6 +94,7 @@ class InterfaceAPI:
             
             print(progressBar)
             avg_Bin['AvgProgress'] = progressBar
+            self.currentMonthPace
             self.paceGraph = customDraw.plotPacingBar(list(avg_Bin['AvgProgress'])[-1], referenceMonth['Amount'][0],avg_Bin.loc[paceIndex, 'AvgProgress'])
             print(avg_Bin.loc[paceIndex, 'AvgProgress'])
             #self.self.datasetAPI['Transaction']['MonthBin'] = [self._returnDateBin(ts) for ts in self.datasetAPI['Transaction']['Timestamp']]

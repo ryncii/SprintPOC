@@ -62,14 +62,38 @@ def plotPacingBar(target: float, current:float, pace: float):
                    )),
         pGraph.Bar(name='', y=['Pace'], x=[max(target-current, 0)], orientation='h',
                    marker=dict(
-                       color = '#FFFFFF',
+                       color = '#000000',
                    )
                    )])
 
-    fig['data'][0].width = 0.2
-    fig['data'][1].width = 0.05
+    fig['data'][0].width = 0.25
+    fig['data'][1].width = 0.04
 
-    fig.update_layout(barmode='stack',
-                  yaxis_type='category')
+    fig.add_vline(
+        x=pace, 
+        line_dash="dash", 
+        annotation_text=str(pace) + ' SGD', 
+        annotation_position="top right")
+
+    fig.update_layout(
+        xaxis=dict(zeroline=False),
+        yaxis_type='category',
+        barmode='stack',
+        width=500,
+        height=100,
+        margin=dict(
+            l=10,
+            r=10,
+            b=10,
+            t=10,
+            pad=2
+        ),
+        yaxis_visible = False,
+        showlegend = False,
+        paper_bgcolor=BACKGROUND_COLOR,
+        plot_bgcolor=BACKGROUND_COLOR
+    )
+
+    fig.update_xaxes(ticksuffix=" SGD")
     
     return fig.to_json()

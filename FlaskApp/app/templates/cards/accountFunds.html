@@ -1,4 +1,4 @@
-<h1>Total Funds:</h1><h2>{{ TOTALACCOUNT_VALUE }}</h2> <h3>{{ TOTALACCOUNT_UNIT }}</h3><br/>
+<h1>Total Funds</h1><h2>{{ TOTALACCOUNT_VALUE }}</h2> <h3>{{ TOTALACCOUNT_UNIT }}</h3><br/>
 {% if ACCOUNT_LS|length == 1 %}
     {% set BankDict = (ACCOUNT_LS|first) %}
     <h4>Account: {{ BankDict['BankAccountID'] }}</h4>

@@ -6,16 +6,6 @@ from core.interfaceAPI import InterfaceAPI
 
 bp = Blueprint('home', __name__)
 
-# Generic Functions
-def squeezeThisTextIn():
-    print(Config.SECRET_KEY)
-    return 'Hello Everybody'
-
-def buildSampleGraphImage():
-    fig = px.scatter(x=range(10), y=range(10))
-    return fig
-
-
 @bp.route('/')
 def load():
     interface = InterfaceAPI()
@@ -24,7 +14,4 @@ def load():
     interface.calculateBusinessState()
     # interface.view()
     
-    squeeze = squeezeThisTextIn()
-    fig = buildSampleGraphImage()
-    graphJSON = json.dumps(fig, cls=pUtils.PlotlyJSONEncoder)
-    return render_template('home.html', username = session['Username'], TOTALACCOUNT_VALUE = interface.accountFunds, TOTALACCOUNT_UNIT = interface.defaultCurrency, ACCOUNT_LS=interface.bankAccount_ls, FIG1 = interface.overallHealthGraph, FIG2 = interface.paceGraph)
+    return render_template('home.html', username = session['Username'], TOTALACCOUNT_VALUE = interface.accountFunds, TOTALACCOUNT_UNIT = interface.defaultCurrency, ACCOUNT_LS=interface.bankAccount_ls, BIZHEALTH = interface.overallHealth, FIG1 = interface.overallHealthGraph, FIG2 = interface.paceGraph)

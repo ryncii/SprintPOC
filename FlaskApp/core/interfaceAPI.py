@@ -9,6 +9,7 @@ import core.charts as customDraw
 # No currency conversion
 # Need to handle empty dataframes or dataframes with size 1
 # Under Overall health - need to fix historicalMonth in event of no data
+# 13 month lookback not completed for Business Performance
 
 class InterfaceAPI:
 
@@ -56,6 +57,7 @@ class InterfaceAPI:
             self.datasetAPI['Transaction']['Month'] = [dt.date(timestamp.year, timestamp.month, 1) for timestamp in self.datasetAPI['Transaction'].loc[:,'Timestamp']]
             monthlySales = self.datasetAPI['Transaction'].groupby(['Month']).sum()
             referenceMonth = monthlySales[monthlySales.index == (dt.date.today().replace(day=1) - dt.timedelta(days=1)).replace(day=1)] # last Month
+            self.overallHealthRefMonth = dt.date.strftime(referenceMonth.index[0], '%b %Y')
             historicalMonths = monthlySales[monthlySales.index < referenceMonth.index[0]]
             sDev = stats.stdev(list(historicalMonths.loc[:,'Amount']))
             meanAmt = stats.mean(list(historicalMonths.loc[:,'Amount']))
@@ -112,4 +114,3 @@ class InterfaceAPI:
             
             listInd += 1
 
-    

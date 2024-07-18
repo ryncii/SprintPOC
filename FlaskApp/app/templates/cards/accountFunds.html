@@ -5,7 +5,7 @@
 {% else %}
     <div class="divCardPanel">
     {% for BankA in ACCOUNT_LS %}
-        {% set BankDict = (BankA) %}
+        {% set BankDict = BankA %}
         <div class="divSubCardContent">
             <h2>Account: {{ BankDict['BankAccountID'] }}</h2><br/>
             <h3>{{ BankDict['Balance'] }}</h3> <h4>{{ BankDict['Currency'] }}</h4>

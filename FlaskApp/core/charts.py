@@ -101,6 +101,8 @@ def plotPacingBar(target: float, current:float, pace: float):
 def plotLastTransactions(transactionData: pd.DataFrame):
     fig = pGraph.Figure()
     
+    SCALE = 10
+
     listIn = []
     listOut = []
     listInText = []
@@ -120,21 +122,26 @@ def plotLastTransactions(transactionData: pd.DataFrame):
     if len(heightList) >= 2:
         heightList.sort()
         leadingIndex = 0
+        distanceList = []
         while leadingIndex < len(heightList):
             if leadingIndex == 1:
                 minDist = heightList[leadingIndex] - heightList[leadingIndex - 1]
+                distanceList.append(minDist)
             elif leadingIndex > 1:
                 minDist = min(minDist, heightList[leadingIndex] - heightList[leadingIndex - 1])
-            
+                distanceList.append(heightList[leadingIndex] - heightList[leadingIndex - 1])
             leadingIndex += 1
+        
+        print(distanceList)
+        print(minDist)
+        gheight = sum([x for x in distanceList]) / minDist * SCALE
+        print(gheight)
 
-        totalDist = heightList[len(heightList) - 1] - heightList[0]
-        gheight = totalDist / minDist * 15
     else:
         gheight = 300
     
-    print(minDist)
-    print(heightList)
+    
+
 
     listInX = ['Event' for i in range(len(listIn))]
     listOutX = ['Event' for i in range(len(listOut))]

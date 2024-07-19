@@ -61,7 +61,6 @@ class InterfaceAPI:
             historicalMonths = monthlySales[monthlySales.index < referenceMonth.index[0]]
             sDev = stats.stdev(list(historicalMonths.loc[:,'Amount']))
             meanAmt = stats.mean(list(historicalMonths.loc[:,'Amount']))
-            print(str(sDev) + ' ' + str(meanAmt))
             if monthlySales.loc[dt.date.today().replace(day=1), 'Amount'] > meanAmt + sDev:
                 self.overallHealth = 'Excellent'
             elif monthlySales.loc[dt.date.today().replace(day=1), 'Amount'] < meanAmt - sDev:
@@ -69,7 +68,7 @@ class InterfaceAPI:
             else:
                 self.overallHealth = 'Stable'
 
-            self.overallHealthGraph = customDraw.plotOverallHealth(list(historicalMonths.loc[:, 'Amount']), referenceMonth['Amount'][0])
+            self.overallHealthGraph = customDraw.plotOverallHealth(list(historicalMonths.loc[:, 'Amount']), round(referenceMonth['Amount'][0],2))
 
             # Pacing
             monthDays = monthrange(dt.date.today().year, dt.date.today().month)[1]
@@ -92,12 +91,19 @@ class InterfaceAPI:
                 else:
                     progressBar.append(progressBar[-1] + amt)
             
-            print(progressBar)
             avg_Bin['AvgProgress'] = progressBar
             self.currentMonthPace
             self.paceGraph = customDraw.plotPacingBar(list(avg_Bin['AvgProgress'])[-1], referenceMonth['Amount'][0], round(avg_Bin.loc[paceIndex, 'AvgProgress'], 2))
-            print(avg_Bin.loc[paceIndex, 'AvgProgress'])
-            #self.self.datasetAPI['Transaction']['MonthBin'] = [self._returnDateBin(ts) for ts in self.datasetAPI['Transaction']['Timestamp']]
+
+    def showTransactions(self):
+        if isinstance(self.datasetAPI['Transaction'], pd.Series):
+            pass
+        else:
+
+            latest100 = copy.copy(self.datasetAPI['Transaction'].sort_values(['Timestamp'], ascending=False)[:50])
+            self.eventsGraph = customDraw.plotLastTransactions(latest100)
+
+
 
     def view(self):
         for key in self.datasetAPI.keys():

@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request as flaskReq, current_app, session
 from config import Config
-import plotly.express as px, plotly.utils as pUtils, json
+import plotly.express as px, plotly.utils as pUtils, json, datetime as dt
 
 from core.interfaceAPI import InterfaceAPI
 
@@ -12,6 +12,8 @@ def load():
     interface.interfaceDataset()
     interface.calculateAccountFunds()
     interface.calculateBusinessState()
+    interface.showTransactions()
+
 
     # Account Funds
     accountFund = {}
@@ -27,4 +29,8 @@ def load():
     bizPerformance['CURRENTMONTHPACE'] = interface.currentMonthPace
     bizPerformance['PACEGRAPH'] = interface.paceGraph
     
-    return render_template('home.html', username = session['Username'], ACCOUNTFUNDDATA = accountFund, BUSINESSPERFORMANCEDATA = bizPerformance)
+    latestTransactions = {}
+    latestTransactions['TRANSACTIONEVENTS'] = interface.eventsGraph
+    latestTransactions['REFRESHTIME'] = dt.datetime.strftime(dt.datetime.now(), '%d %b %Y %H:%M:%S')
+    
+    return render_template('home.html', username = session['Username'], ACCOUNTFUNDDATA = accountFund, BUSINESSPERFORMANCEDATA = bizPerformance, TRANSACTIONEVENTS = latestTransactions)

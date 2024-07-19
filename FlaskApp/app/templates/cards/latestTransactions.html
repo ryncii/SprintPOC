@@ -1,0 +1,9 @@
+{% set transactionEventsData = TRANSACTIONEVENTS %}
+<h1>Latest Transactions</h1>
+<h4>Latest transactions asof {{ transactionEventsData['REFRESHTIME'] }}</h4>
+<div id="TransactionEvents" class="chart"></div>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script type="text/javascript">
+    var graphs = {{ transactionEventsData['TRANSACTIONEVENTS'] | safe }};
+    Plotly.plot('TransactionEvents',graphs,{});
+</script>

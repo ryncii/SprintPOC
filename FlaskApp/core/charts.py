@@ -1,4 +1,4 @@
-import plotly.express as px, plotly.utils as pUtils, json, plotly.graph_objects as pGraph
+import plotly.graph_objects as pGraph, pandas as pd, datetime as dt, statistics as stats
 
 THEME_COLOR = '#154360'
 BACKGROUND_COLOR = '#EAF2F8'
@@ -96,4 +96,88 @@ def plotPacingBar(target: float, current:float, pace: float):
 
     fig.update_xaxes(ticksuffix=" SGD")
     
+    return fig.to_json()
+
+def plotLastTransactions(transactionData: pd.DataFrame):
+    fig = pGraph.Figure()
+    
+    listIn = []
+    listOut = []
+    listInText = []
+    listOutText = []
+    heightList = []
+
+    for index, record in transactionData.iterrows():
+        if record['Type'] == 'Sales':
+            listIn.append(record['Timestamp'].timestamp())
+            listInText.append('[' + dt.datetime.strftime(record['Timestamp'], '%H:%M') + '] ' + record['CounterpartyID'] + ', ' + str(record['Amount']) + ' ' + str(record['Currency']))
+        else:
+            listOut.append(record['Timestamp'].timestamp())
+            listOutText.append('[' + dt.datetime.strftime(record['Timestamp'], '%H:%M') + '] ' + record['CounterpartyID'] + ', ' + str(record['Amount']) + ' ' + str(record['Currency']))
+        
+        heightList.append(record['Timestamp'].timestamp() / 10000)
+
+    if len(heightList) >= 2:
+        heightList.sort()
+        leadingIndex = 0
+        while leadingIndex < len(heightList):
+            if leadingIndex == 1:
+                minDist = heightList[leadingIndex] - heightList[leadingIndex - 1]
+            elif leadingIndex > 1:
+                minDist = min(minDist, heightList[leadingIndex] - heightList[leadingIndex - 1])
+            
+            leadingIndex += 1
+
+        totalDist = heightList[len(heightList) - 1] - heightList[0]
+        gheight = totalDist / minDist * 15
+    else:
+        gheight = 300
+    
+    print(minDist)
+    print(heightList)
+
+    listInX = ['Event' for i in range(len(listIn))]
+    listOutX = ['Event' for i in range(len(listOut))]
+
+    fig.add_trace(pGraph.Scatter(y=listIn, x=listInX,
+                    mode='lines+markers+text',
+                    marker_color=THEME_COLOR,
+                    hoverinfo = 'skip',
+                    text = listInText,
+                    textposition='middle right'))
+    
+    fig.add_trace(pGraph.Scatter(y=listOut, x=listOutX,
+                    mode='lines+markers+text',
+                    marker_color=THEME_COLOR,
+                    hoverinfo = 'skip',
+                    text = listOutText,
+                    textposition='middle left'
+                    ))
+
+    uniqueDay = list({ record['Timestamp'].replace(hour=0, minute=0, second=0, microsecond=0).timestamp() for index, record in transactionData.iterrows() })
+    print(uniqueDay)
+    
+    for day in uniqueDay:
+        fig.add_hline(
+            y=day,
+            line_dash="dash", 
+            annotation_text=str(dt.date.fromtimestamp(day)),
+            opacity=0.3,
+            annotation_position="bottom")
+    
+    fig.update_layout(
+        margin=dict(
+            l=10,
+            r=10,
+            b=10,
+            t=10,
+            pad=0
+        ),
+        height= gheight,
+        showlegend = False,
+        yaxis_visible = False,
+        paper_bgcolor=BACKGROUND_COLOR,
+        plot_bgcolor=BACKGROUND_COLOR
+    )
+
     return fig.to_json()

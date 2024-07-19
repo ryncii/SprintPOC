@@ -12,6 +12,19 @@ def load():
     interface.interfaceDataset()
     interface.calculateAccountFunds()
     interface.calculateBusinessState()
-    # interface.view()
+
+    # Account Funds
+    accountFund = {}
+    accountFund['TOTALACCOUNT_VALUE'] = interface.accountFunds
+    accountFund['TOTALACCOUNT_UNIT'] = interface.defaultCurrency
+    accountFund['ACCOUNT_LS'] = interface.bankAccount_ls
     
-    return render_template('home.html', username = session['Username'], TOTALACCOUNT_VALUE = interface.accountFunds, TOTALACCOUNT_UNIT = interface.defaultCurrency, ACCOUNT_LS=interface.bankAccount_ls, BIZHEALTH = interface.overallHealth, BIZREFERENCEMONTH = interface.overallHealthRefMonth, FIG1 = interface.overallHealthGraph, CURRENTMONTHPACE= interface.currentMonthPace, FIG2 = interface.paceGraph)
+    # Business Perfromance
+    bizPerformance = {}
+    bizPerformance['BIZHEALTH'] = interface.overallHealth
+    bizPerformance['BIZREFERENCEMONTH'] = interface.overallHealthRefMonth
+    bizPerformance['HEALTHGRAPH'] = interface.overallHealthGraph
+    bizPerformance['CURRENTMONTHPACE'] = interface.currentMonthPace
+    bizPerformance['PACEGRAPH'] = interface.paceGraph
+    
+    return render_template('home.html', username = session['Username'], ACCOUNTFUNDDATA = accountFund, BUSINESSPERFORMANCEDATA = bizPerformance)

@@ -1,12 +1,13 @@
-<h1>Business Performance</h1><h2>{{ BIZHEALTH }}</h2><br />
-<h4>{{ BIZREFERENCEMONTH }} Profit against Last 13 months Profit</h4>
+{% set bizPerformanceData = BUSINESSPERFORMANCEDATA %}
+<h1>Business Performance</h1><h2>{{ bizPerformanceData['BIZHEALTH'] }}</h2><br />
+<h4>{{ bizPerformanceData['BIZREFERENCEMONTH'] }} Profit against Last 13 months Profit</h4>
 <div id="OverallHealth" class="chart"></div>
-<h4>{{ CURRENTMONTHPACE }} Profit Pace against Last 13 months Average Profit Pace</h4>
+<h4>{{ bizPerformanceData['CURRENTMONTHPACE'] }} Profit Pace against Last 13 months Average Profit Pace</h4>
 <div id="RevPace" class="chart"></div>
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <script type="text/javascript">
-    var graphs = {{ FIG1 | safe }};
+    var graphs = {{ bizPerformanceData['HEALTHGRAPH'] | safe }};
     Plotly.plot('OverallHealth',graphs,{});
-    graphs = {{ FIG2 | safe }};
+    graphs = {{ bizPerformanceData['PACEGRAPH'] | safe }};
     Plotly.plot('RevPace',graphs,{});
 </script>

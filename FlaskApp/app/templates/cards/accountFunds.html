@@ -1,10 +1,11 @@
-<h1>Total Funds</h1><h2>{{ TOTALACCOUNT_VALUE }}</h2> <h3>{{ TOTALACCOUNT_UNIT }}</h3><br/>
-{% if ACCOUNT_LS|length == 1 %}
-    {% set BankDict = (ACCOUNT_LS|first) %}
+{% set accountFundData = ACCOUNTFUNDDATA %}
+<h1>Total Funds</h1><h2>{{ accountFundData['TOTALACCOUNT_VALUE'] }}</h2> <h3>{{ accountFundData['TOTALACCOUNT_UNIT'] }}</h3><br/>
+{% if accountFundData['ACCOUNT_LS']|length == 1 %}
+    {% set BankDict = (accountFundData['ACCOUNT_LS']|first) %}
     <h4>Account: {{ BankDict['BankAccountID'] }}</h4>
 {% else %}
     <div class="divCardPanel">
-    {% for BankA in ACCOUNT_LS %}
+    {% for BankA in accountFundData['ACCOUNT_LS'] %}
         {% set BankDict = BankA %}
         <div class="divSubCardContent">
             <h2>Account: {{ BankDict['BankAccountID'] }}</h2><br/>

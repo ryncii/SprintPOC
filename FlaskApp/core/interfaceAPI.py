@@ -95,7 +95,7 @@ class InterfaceAPI:
             print(progressBar)
             avg_Bin['AvgProgress'] = progressBar
             self.currentMonthPace
-            self.paceGraph = customDraw.plotPacingBar(list(avg_Bin['AvgProgress'])[-1], referenceMonth['Amount'][0],avg_Bin.loc[paceIndex, 'AvgProgress'])
+            self.paceGraph = customDraw.plotPacingBar(list(avg_Bin['AvgProgress'])[-1], referenceMonth['Amount'][0], round(avg_Bin.loc[paceIndex, 'AvgProgress'], 2))
             print(avg_Bin.loc[paceIndex, 'AvgProgress'])
             #self.self.datasetAPI['Transaction']['MonthBin'] = [self._returnDateBin(ts) for ts in self.datasetAPI['Transaction']['Timestamp']]
 

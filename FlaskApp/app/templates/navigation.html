@@ -3,7 +3,11 @@
     <br/>
     <br/>
     <nav>
-        <a href="{{ url_for('home.load') }}">At a Glance</a><br/>
+        {% if CURRENTPAGE == "Home" %}
+            <a class="divBoxNavActive" href="{{ url_for('home.load') }}">At a Glance</a><br/>
+        {% else %}
+            <a href="{{ url_for('home.load') }}">At a Glance</a><br/>
+        {% endif %}
         <a href="">Financial Insights</a><br/>
         <a href="">Campaign</a><br/>
         <a href="">Environemnt Social Goverance</a>
@@ -14,6 +18,7 @@
     <nav>
         <a href="">Settings</a><br/>
         <a href="">Contact Us</a><br/>
+        <b><a href="">{{ username}}</a></b>
     </nav>
-    <b>{{ username}}</b>
+    
 </div>

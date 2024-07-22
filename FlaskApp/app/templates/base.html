@@ -58,18 +58,41 @@
         .divBoxNav{
             border-radius: 15px;
             background-color:#EAF2F8;
-            padding: 10px;
+            padding-top: 10px;
+            padding-bottom: 10px;
             display: inline-block;
+            list-style-type: none;
+            margin: 0;
+            padding-left: 0px;
+            padding-right: 0px;
+            width: 200px;
+        }
+
+       .divBoxNav a {
+            display: block;
+            color: #000;
+            padding: 5px 5px 5px 5px;
+            text-decoration: none;
         }
     
+        .divBoxNav a:hover:not(.divBoxNavActive) {
+            background-color: #154360;
+            color: white;
+            }
+        
+        .divBoxNavActive {
+            font-weight: bold;
+            color: #FFFFFF;
+        }
+
         .navPaneTop{
-            padding: 10px;
+            padding: 0px;
             text-align: left;
             vertical-align: top;
         }
         
         .navPaneBot{
-            padding: 10px;
+            padding: 0px;
             text-align: left;
             vertical-align: bottom;
         }

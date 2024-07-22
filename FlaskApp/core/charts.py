@@ -173,6 +173,7 @@ def plotLastTransactions(transactionData: pd.DataFrame):
             pad=0
         ),
         height= gheight,
+        width = 400,
         showlegend = False,
         yaxis_visible = False,
         paper_bgcolor=BACKGROUND_COLOR,

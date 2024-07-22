@@ -33,4 +33,7 @@ def load():
     latestTransactions['TRANSACTIONEVENTS'] = interface.eventsGraph
     latestTransactions['REFRESHTIME'] = dt.datetime.strftime(dt.datetime.now(), '%d %b %Y %H:%M:%S')
     
-    return render_template('home.html', username = session['Username'], ACCOUNTFUNDDATA = accountFund, BUSINESSPERFORMANCEDATA = bizPerformance, TRANSACTIONEVENTS = latestTransactions)
+    campaignPerformance = {}
+    campaignPerformance['Status'] = 'No active campaigns running'
+
+    return render_template('home.html', username = session['Username'], ACCOUNTFUNDDATA = accountFund, BUSINESSPERFORMANCEDATA = bizPerformance, TRANSACTIONEVENTS = latestTransactions, CAMPAIGNPROGRESS=campaignPerformance)

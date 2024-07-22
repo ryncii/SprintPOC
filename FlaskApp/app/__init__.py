@@ -9,7 +9,10 @@ def create_app(configuration=Config):
     app.register_blueprint(login_bp)
 
     from app.home import bp as home_bp
-    app.register_blueprint(home_bp, url_prefix='/home')
+    app.register_blueprint(home_bp, url_prefix='/Home')
+
+    from app.financialInsights import bp as finInsights_bp
+    app.register_blueprint(finInsights_bp, url_prefix='/FinancialInsights')
 
     @app.route('/test/')
     def testrun():

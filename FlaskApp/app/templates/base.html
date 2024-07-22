@@ -2,11 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>[Platform Name] by [Company Name]</title>
+    <title>AInalyst</title>
     <style type="text/css">
 
         .main {
             background-color:#154360;
+            text-align: center;
+            min-height:100%;/* make sure it is at least as tall as the viewport */
+            position:relative;
         }
 
         .divBoxLogin{
@@ -35,9 +38,23 @@
             margin-left: 20px;
             padding: 10px;
             vertical-align: top;
+            text-align: left;
             display: inline-block;
         }
- 
+        
+        /* Section Headers */
+        .divBoxContent h1{
+            text-align: left;
+            margin:10px;
+            font-size: 26px;
+        }
+
+        .divContentCol{
+            display: inline-block;
+            vertical-align: top;
+        }
+
+
         .divBoxNav{
             border-radius: 15px;
             background-color:#EAF2F8;
@@ -63,6 +80,81 @@
             border-top: 1px solid black;
         }
 
+        .divCardContent{
+            border-radius: 5px;
+            background-color:#EAF2F8;
+            padding: 10px;
+            text-align: left;
+            min-width: 450px;
+            display: inline-block;
+            margin: 3px;
+        }
+
+        /* Chart Title Generic */
+        .divCardContent h1{
+            font-size: 18px;
+            margin: 0px;
+        }
+
+        /* Chart Value Generic */
+        .divCardContent h2{
+            font-size: 24px;
+            margin: 0px;
+            display:inline;
+        }
+
+        /* Chart Unit Generic */
+        .divCardContent h3{
+            font-size: 18px;
+            margin: 0px;
+            display:inline;
+        }
+        
+        /* Chart Subtext */
+        .divCardContent h4{
+            font-size: 12px;
+            margin: 0px;
+            display:inline;
+        }
+
+        .divCardPanel{
+            width: 100%;
+            height: 100%;
+            display: inline-block;
+            overflow-x: auto;
+        }
+
+        .divSubCardContent{
+            margin-top: 5px;
+            padding: 5px;
+            vertical-align: center;
+            display: inline-block;
+            height: 50px;
+            width: 160px;
+        }
+
+        .divSubCardContent h2{
+            font-size: 12px;
+            margin: 0px;
+            display:inline;
+        }
+
+        .divSubCardContent h3{
+            font-size: 16px;
+            margin: 0px;
+            display:inline;
+        }
+
+        .divSubCardContent h4{
+            font-size: 12px;
+            margin: 0px;
+            display:inline;
+        }
+
+        .chart {
+            overflow-y: auto;
+            max-height: 400px;
+        }
     </style>
 </head>
 <body class="main">

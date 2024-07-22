@@ -4,15 +4,24 @@
     <div class="divBoxHome">
         <div class="divBoxNav"> {% include 'navigation.html' %} </div>
         <div class="divBoxContent">
-            <h1>This is to test the success of reading post</h1>
-            <p>{{SQSQ}}</p>
-            <h3>Now is the final prove of concept</h3>
-            <div id="chart" class="chart"></div>
+            <h1>At a Glance</h1>
+            <div class="divContentCol">
+                <div class="divCardContent">
+                    {% include 'cards/accountFunds.html' %}
+                </div><br/>
+                <div class="divCardContent">
+                    {% include 'cards/latestTransactions.html' %}
+                </div>
+            </div>
+            <div class="divContentCol">
+                <div class="divCardContent">
+                    {% include 'cards/performanceSummary.html' %}
+                </div><br />
+                <div class="divCardContent" style="width: auto; display: block;">
+                    {% include 'cards/campaignPerformance.html' %}
+                </div>
+            </div>
         </div>
     </div>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <script type="text/javascript">
-        var graphs = {{ FIG1 | safe }};
-        Plotly.plot('chart',graphs,{});
-    </script>
+    
 {% endblock content %}

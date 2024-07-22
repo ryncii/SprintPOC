@@ -100,49 +100,44 @@ def plotPacingBar(target: float, current:float, pace: float):
 
 def plotLastTransactions(transactionData: pd.DataFrame):
     fig = pGraph.Figure()
+    transactionData = transactionData.sort_values('Timestamp', ascending=True)
     
-    SCALE = 10
+    eventRunningNumber = 0
+    eventList = []
+    lastDate = None
+    refDateDict = {}
+    for ts in transactionData['Timestamp']:
+        if lastDate == None:
+            lastDate = ts.date()
+            refDateDict[ts.date()] = eventRunningNumber
+            eventRunningNumber += 1
+        else:
+            if lastDate == ts.date():
+                eventRunningNumber += 1
+            else:
+                refDateDict[ts.date()] = eventRunningNumber + 2
+                lastDate = ts.date()
+                eventRunningNumber += 3
+        
+        eventList.append(eventRunningNumber)
+
+    transactionData['EventNo'] = eventList
 
     listIn = []
     listOut = []
     listInText = []
     listOutText = []
-    heightList = []
 
     for index, record in transactionData.iterrows():
         if record['Type'] == 'Sales':
-            listIn.append(record['Timestamp'].timestamp())
+            listIn.append(record['EventNo'])
             listInText.append('[' + dt.datetime.strftime(record['Timestamp'], '%H:%M') + '] ' + record['CounterpartyID'] + ', ' + str(record['Amount']) + ' ' + str(record['Currency']))
         else:
-            listOut.append(record['Timestamp'].timestamp())
+            listOut.append(record['EventNo'])
             listOutText.append('[' + dt.datetime.strftime(record['Timestamp'], '%H:%M') + '] ' + record['CounterpartyID'] + ', ' + str(record['Amount']) + ' ' + str(record['Currency']))
+
+    gheight = max(300, eventRunningNumber * 20)
         
-        heightList.append(record['Timestamp'].timestamp() / 10000)
-
-    if len(heightList) >= 2:
-        heightList.sort()
-        leadingIndex = 0
-        distanceList = []
-        while leadingIndex < len(heightList):
-            if leadingIndex == 1:
-                minDist = heightList[leadingIndex] - heightList[leadingIndex - 1]
-                distanceList.append(minDist)
-            elif leadingIndex > 1:
-                minDist = min(minDist, heightList[leadingIndex] - heightList[leadingIndex - 1])
-                distanceList.append(heightList[leadingIndex] - heightList[leadingIndex - 1])
-            leadingIndex += 1
-        
-        print(distanceList)
-        print(minDist)
-        gheight = sum([x for x in distanceList]) / minDist * SCALE
-        print(gheight)
-
-    else:
-        gheight = 300
-    
-    
-
-
     listInX = ['Event' for i in range(len(listIn))]
     listOutX = ['Event' for i in range(len(listOut))]
 
@@ -160,15 +155,12 @@ def plotLastTransactions(transactionData: pd.DataFrame):
                     text = listOutText,
                     textposition='middle left'
                     ))
-
-    uniqueDay = list({ record['Timestamp'].replace(hour=0, minute=0, second=0, microsecond=0).timestamp() for index, record in transactionData.iterrows() })
-    print(uniqueDay)
     
-    for day in uniqueDay:
+    for day in refDateDict.keys():
         fig.add_hline(
-            y=day,
+            y=refDateDict[day],
             line_dash="dash", 
-            annotation_text=str(dt.date.fromtimestamp(day)),
+            annotation_text=str(day),
             opacity=0.3,
             annotation_position="bottom")
     

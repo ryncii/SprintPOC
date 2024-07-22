@@ -36,4 +36,4 @@ def load():
     campaignPerformance = {}
     campaignPerformance['Status'] = 'No active campaigns running'
 
-    return render_template('home.html', username = session['Username'], ACCOUNTFUNDDATA = accountFund, BUSINESSPERFORMANCEDATA = bizPerformance, TRANSACTIONEVENTS = latestTransactions, CAMPAIGNPROGRESS=campaignPerformance)
+    return render_template('home.html', username = session['Username'], ACCOUNTFUNDDATA = accountFund, BUSINESSPERFORMANCEDATA = bizPerformance, TRANSACTIONEVENTS = latestTransactions, CAMPAIGNPROGRESS=campaignPerformance, CURRENTPAGE="Home")

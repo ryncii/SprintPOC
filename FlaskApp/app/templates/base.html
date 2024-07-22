@@ -30,18 +30,26 @@
             border: 1px solid;
         }
 
+        .divBoxFooter{
+            text-align: right;
+            padding: 5px 15px 5px 5px;
+            margin: 0px;
+            font-weight: lighter;
+            font-style: italic;
+        }
+
         .divBoxContent{
             border-radius: 15px;
             background-color:#FFFFFF;
             margin-top: 20px;
-            margin-bottom: 20px;
+            margin-bottom: 0px;
             margin-left: 20px;
             padding: 10px;
             vertical-align: top;
             text-align: left;
             display: inline-block;
-            width: 1010px;
-            height: 700px;
+            min-width: 1010px;
+            min-height: 600px;
         }
         
         /* Section Headers */
@@ -184,6 +192,5 @@
 </head>
 <body class="main">
     {% block content %} {% endblock content %}
-
 </body>
 </html>

@@ -11,8 +11,11 @@ def create_app(configuration=Config):
     from app.home import bp as home_bp
     app.register_blueprint(home_bp, url_prefix='/Home')
 
-    from app.financialInsights import bp as finInsights_bp
-    app.register_blueprint(finInsights_bp, url_prefix='/FinancialInsights')
+    from app.businessInsights import bp as bizInsights_bp
+    app.register_blueprint(bizInsights_bp, url_prefix='/BusinessInsights')
+
+    from app.aiAnalyst import bp as aiAnalyst_bp
+    app.register_blueprint(aiAnalyst_bp, url_prefix='/AIAnalyst')
 
     @app.route('/test/')
     def testrun():

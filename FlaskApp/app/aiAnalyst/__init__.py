@@ -4,13 +4,13 @@ import plotly.express as px, plotly.utils as pUtils, json, datetime as dt
 
 from core.interfaceAPI import InterfaceAPI
 
-bp = Blueprint('financialInsights', __name__)
+bp = Blueprint('aiAnalyst', __name__)
 
 @bp.route('/')
 def load():
 
     generalInfo = {}
     generalInfo['Username'] = flaskSession['Username']
-    generalInfo['ActivePage'] = "FinancialInsights"
+    generalInfo['ActivePage'] = "AIAnalyst"
 
-    return render_template('financialInsights.html', GENERAL = generalInfo)
+    return render_template('aiAnalyst.html', GENERAL = generalInfo)

@@ -1,14 +1,24 @@
+{% set pageInfo = GENERAL %}
 <div class="navPaneTop">
     <h3>AInalyst</h3>
     <br/>
     <br/>
     <nav>
-        {% if CURRENTPAGE == "Home" %}
+        {% if pageInfo['ActivePage'] == "Home" %}
             <a class="divBoxNavActive" href="{{ url_for('home.load') }}">At a Glance</a><br/>
         {% else %}
             <a href="{{ url_for('home.load') }}">At a Glance</a><br/>
         {% endif %}
-        <a href="">Financial Insights</a><br/>
+        {% if pageInfo['ActivePage'] == "BusinessInsights" %}
+            <a class="divBoxNavActive" href="{{ url_for('bizInsights.load') }}">Business Insights</a><br/>
+        {% else %}
+            <a href="{{ url_for('bizInsights.load') }}">Business Insights</a><br/>
+        {% endif %}
+        {% if pageInfo['ActivePage'] == "AIAnalyst" %}
+            <a class="divBoxNavActive" href="{{ url_for('aiAnalyst.load') }}">A.I. Analyst Recommends</a><br/>
+        {% else %}
+            <a href="{{ url_for('aiAnalyst.load') }}">A.I. Analyst Recommends</a><br/>
+        {% endif %}
         <a href="">Campaign</a><br/>
         <a href="">Environemnt Social Goverance</a>
     </nav>
@@ -18,7 +28,7 @@
     <nav>
         <a href="">Settings</a><br/>
         <a href="">Contact Us</a><br/>
-        <b><a href="">{{ username}}</a></b>
+        <b><a href="">{{ pageInfo['Username'] }}</a></b>
     </nav>
     
 </div>

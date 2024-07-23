@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request as flaskReq, current_app, session
+from flask import Blueprint, render_template, current_app, session as flaskSession
 from config import Config
 import plotly.express as px, plotly.utils as pUtils, json, datetime as dt
 
@@ -36,4 +36,8 @@ def load():
     campaignPerformance = {}
     campaignPerformance['Status'] = 'No active campaigns running'
 
-    return render_template('home.html', username = session['Username'], ACCOUNTFUNDDATA = accountFund, BUSINESSPERFORMANCEDATA = bizPerformance, TRANSACTIONEVENTS = latestTransactions, CAMPAIGNPROGRESS=campaignPerformance, CURRENTPAGE="Home")
+    generalInfo = {}
+    generalInfo['Username'] = flaskSession['Username']
+    generalInfo['ActivePage'] = "Home"
+
+    return render_template('home.html', GENERAL = generalInfo , ACCOUNTFUNDDATA = accountFund, BUSINESSPERFORMANCEDATA = bizPerformance, TRANSACTIONEVENTS = latestTransactions, CAMPAIGNPROGRESS=campaignPerformance)
